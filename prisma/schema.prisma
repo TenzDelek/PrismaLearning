@@ -13,10 +13,13 @@ datasource db {
 model Story {
   id        String   @id @default(cuid())
   title     String
+  slug      String   @unique
   content   String
   published Boolean? @default(false)
   updated   DateTime @updatedAt
   created   DateTime @default(now())
+
+  @@index(slug)
 }
 
 //so in here only title and content we have to specify

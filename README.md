@@ -70,7 +70,94 @@ publish Boolean? @default(false)
 updateat DateTime @updateat
 whenever it is updated it changes
 
+@map - 
+@map(create_at) = change the name like alas
+so in code we have CreateAt but in db we have create_at
+ created   DateTime @default(now()) @map(create_at)
+
+@@map -
+at the last -for db name change alas
+@@map(storyss)
+}
+
+@@index
+at the last
+@@index read performance like for slug and id
+}
+
 - both used in default func
 now()
 autoincrement()
 
+# slug
+>slug      String   @unique ->must use @unique if not then error
+usefull for pasing in url like title and all
+use like my-post
+if we are using slug the [slug] not [id] for dynamic routing
+slug:params.slug
+
+# filtering
+```js
+ const story= await prisma.story.findMany({
+    where:{
+      published:true
+    }
+  });
+```
+```js
+ const story= await prisma.story.findMany({
+    where:{
+     title:{
+        contains:"a"
+     }
+    }
+  });
+```
+```js
+ const story= await prisma.story.findMany({
+    where:{
+      title:{
+        endsWith:"post"
+      }
+    }
+  });
+```
+```js
+ const story= await prisma.story.findMany({
+    where:{
+      title:{
+        endsWith:"post"
+      }
+    },
+    orderBy:{
+        created:"asc"
+    }
+  });
+```
+
+# complete:
+
+```js
+const story= await prisma.story.findMany({
+    where:{
+     title:{
+      endsWith:"dream"
+     }
+    },
+    orderBy:{
+      created:"asc"
+    },
+    select:{
+      id:true,
+      title:true,
+      slug:true
+    },
+    take:1 # pagination
+  });
+the select is usefull for not selecting password like we can write password:false
+```
+# problem related with pagination
+- sometime the pagination only take 2 suppose 
+now we when we do .length the out put thens to
+be 2 but in db we have 10 so for that we do
+>const count=await prisma.story.count()
