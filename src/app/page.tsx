@@ -19,7 +19,7 @@ const count= await prisma.story.count();
         <textarea  placeholder="enter content" name="content" rows={5} className=" text-sm p-2 rounded-lg"
   
         />
-        <button type="submit" className=" border p-2 rounded-lg hover:bg-white transition hover:text-black">Create post</button>
+        <button type="submit" className=" border p-2 rounded-lg hover:bg-white text-white transition hover:text-black">Create post</button>
       </form>
      
     </div>

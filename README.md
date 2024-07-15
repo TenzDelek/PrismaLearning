@@ -161,3 +161,69 @@ the select is usefull for not selecting password like we can write password:fals
 now we when we do .length the out put thens to
 be 2 but in db we have 10 so for that we do
 >const count=await prisma.story.count()
+
+# relationship
+one to many:
+- user and post
+a user can have many post but one post can be only of one user
+# one-many
+```JS
+model User {
+  id       String  @id @default(cuid())
+  posts    Story[]
+}
+
+model Story {
+  id        String   @id @default(cuid())
+  author    User     @relation(fields: [authorid], references: [id])
+  authorid  String
+}
+# HERE when we create the model user and at posts we give Story[] it auto generate the field in the 
+Story schema author and authorid.  the @relation simply says that the authorid is referencing id of User
+(foriegn key)
+```
+# many-many
+```js
+
+model User {
+  id       String  @id @default(cuid())
+  posts    Story[]
+}
+
+model Story {
+  id        String   @id @default(cuid())
+  author    User[]
+}
+# for many to many (when a post might have many users) we simply use User[]. (Impplicit many-many)
+```
+# one - one
+```js
+
+model User {
+  id       String  @id @default(cuid())
+  post    Story?
+}
+
+model Story {
+  id        String   @id @default(cuid())
+  author    User     @relation(fields: [authorid], references: [id])
+  authorid  String @unique
+}
+```
+
+# connect
+```js
+//usefull when we are inserting data and user is needed
+ await prisma.story.create({
+        data:{
+            title:titles,
+            slug:titles.replace(/\s+/g,"-").toLowerCase(),
+            content:contents,
+            author:{
+                connect:{
+                    email:"tenzindelek@gmail.com"
+                }
+            }
+        }
+    })
+```

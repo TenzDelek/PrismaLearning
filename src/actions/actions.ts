@@ -12,7 +12,21 @@ export const callserver= async(formdata:FormData)=>{
         data:{
             title:titles,
             slug:titles.replace(/\s+/g,"-").toLowerCase(),
-            content:contents
+            content:contents,
+            author:{
+                connect:{//or we can use connectorcreate
+                    email:"tenzindelek@gmail.com" 
+                }
+                // connectOrCreate:{
+                //     where:{
+                //         email:"tenzindelek@gmail.com"
+                //     },
+                //     create:{
+                //         email:"tenzdelek@hotmail.com",
+                //         password:"11111"
+                //     }
+                // }
+            }
         }
     })
     revalidatePath("/")
