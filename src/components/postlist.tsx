@@ -2,7 +2,7 @@
 import { deleteserver } from '@/actions/actions';
 import prisma from '@/lib/db'
 import Link from 'next/link';
-import React from 'react'
+import { unstable_cache as cache } from 'next/cache';
 
 const Postlist =async () => {
     // const Story= await prisma.story.findMany({
@@ -24,14 +24,19 @@ const Postlist =async () => {
     //   });
 
     //here we are taking data from the user 
-    const user=await prisma.user.findUnique({
-      where:{
-        email:"tenzdelek@gmail.com"
-      },
-      include:{
-        posts:true
-      }
+    const getcachedpost=cache(()=>{
+      return prisma.user.findUnique({
+        where:{
+          email:"tenzdelek@gmail.com"
+        },
+        include:{
+          posts:true
+        }
+      })
+      
     })
+
+    const user=await getcachedpost();
     //here the include is important if not the post wont show
   return (
     <div> {user?.posts.map((post)=>(

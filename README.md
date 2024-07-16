@@ -235,3 +235,10 @@ for faster workflow
 2. install npm i ts-node -D
 3. run npx prisma db seed
 
+# caching
+currently is unstable
+used in postlist(check the file)
+
+# serverless
+it will not run if there is no request
+so sqlite are not supported in vercel
