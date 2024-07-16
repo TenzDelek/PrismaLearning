@@ -227,3 +227,11 @@ model Story {
         }
     })
 ```
+
+# seeding
+dummy data
+for faster workflow
+1. create seed.ts (copy from here)
+2. install npm i ts-node -D
+3. run npx prisma db seed
+

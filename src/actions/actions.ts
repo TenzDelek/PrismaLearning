@@ -15,7 +15,7 @@ export const callserver= async(formdata:FormData)=>{
             content:contents,
             author:{
                 connect:{//or we can use connectorcreate
-                    email:"tenzindelek@gmail.com" 
+                    email:"tenzdelek@gmail.com" 
                 }
                 // connectOrCreate:{
                 //     where:{

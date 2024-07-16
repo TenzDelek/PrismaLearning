@@ -26,7 +26,7 @@ const Postlist =async () => {
     //here we are taking data from the user 
     const user=await prisma.user.findUnique({
       where:{
-        email:"tenzindelek@gmail.com"
+        email:"tenzdelek@gmail.com"
       },
       include:{
         posts:true
