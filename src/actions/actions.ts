@@ -1,13 +1,15 @@
 "use server"
 
 import prisma from "@/lib/db";
+import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const callserver= async(formdata:FormData)=>{
 
     const titles=formdata.get("title") as string
     const contents=formdata.get("content") as string
-
+try {
+    
     await prisma.story.create({
         data:{
             title:titles,
@@ -29,6 +31,13 @@ export const callserver= async(formdata:FormData)=>{
             }
         }
     })
+} catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError){
+        if (error.code=="P2002"){
+            console.log("UNIQUE VOILATION") //will show up in terminal
+        }
+    }
+}
     revalidatePath("/")
 }
 
