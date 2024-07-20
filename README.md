@@ -242,3 +242,9 @@ used in postlist(check the file)
 # serverless
 it will not run if there is no request
 so sqlite are not supported in vercel
+
+# for bg
+create a file like 1920*1080px
+```js
+      <Image src="/" priority quality={100}  width={23} height={22}  style={{objectfit:cover,objectposition:75%}} alt='ttt'/>
+      ```
